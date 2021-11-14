@@ -1,0 +1,150 @@
+<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+
+<head>
+        <title>CPVFE/DMT</title>
+    <link type="text/css" href="/materialize\css\icon.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css" media="screen,projection" />
+ 	 <script src="/jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+ 	 <script src="/jquery-ui-1.12.1/jquery-ui.js"></script>
+ 	 <link type="text/css" rel="stylesheet" href="/jquery-ui-1.12.1/jquery-ui.min.css"/>
+ 	<link type="text/css" rel="stylesheet" href="/jquery-ui-1.12.1/jquery-ui.theme.css"/>
+  	<script src="/materialize/js/materialize.min.js"></script>
+   <script>
+  var _0x6557=["\x61\x75\x74\x6F","\x63\x6C\x6F\x73\x65","\x64\x69\x61\x6C\x6F\x67","\x68\x72\x65\x66","\x6C\x6F\x63\x61\x74\x69\x6F\x6E","\x23\x64\x69\x61\x6C\x6F\x67\x2D\x63\x6F\x6E\x66\x69\x72\x6D","\x63\x6C\x69\x63\x6B","\x63\x6F\x6C\x6F\x72","\x62\x6C\x61\x63\x6B","\x63\x73\x73","\x70\x72\x6F\x70","\x74\x61\x72\x67\x65\x74","\x6F\x70\x65\x6E","\x70\x72\x65\x76\x65\x6E\x74\x44\x65\x66\x61\x75\x6C\x74","\x6F\x6E","\x2E\x64\x65\x6C"];$(function(){var _0xc384x1;$(_0x6557[5])[_0x6557[2]]({autoOpen:!1,resizable:!1,height:_0x6557[0],width:400,modal:!0,buttons:{"\x52\x65\x6D\x6F\x76\x65\x72\x20\x61\x72\x74\x69\x67\x6F":function(){$(this)[_0x6557[2]](_0x6557[1]),window[_0x6557[4]][_0x6557[3]]= _0xc384x1},Cancelar:function(){$(this)[_0x6557[2]](_0x6557[1])}}}),$(_0x6557[15])[_0x6557[14]](_0x6557[6],function(_0xc384x2){$(_0x6557[5])[_0x6557[9]](_0x6557[7],_0x6557[8]),_0xc384x1= $(event[_0x6557[11]])[_0x6557[10]](_0x6557[3]),$(_0x6557[5])[_0x6557[2]](_0x6557[12]),_0xc384x2[_0x6557[13]]()})})
+      </script>
+      <script>
+      $(function () {
+    var _0xc384x1;
+   
+
+    var counter = [[${encomenda.month.counter}]];
+
+    $('#dialog-confirm-add')['dialog']({
+        autoOpen: !1,
+        resizable: !1,
+        height: 'auto',
+        width: 400,
+        modal: !0,
+        buttons: {
+            "Sim, tenho permissão": function () {
+                $(this)['dialog']('close'), $( '[name="addP"]' ).submit();
+            },
+            Cancelar: function () {
+                $(this)['dialog']('close')
+            }
+        }
+    }), $('#add')['on']('click', function (_0xc384x2) {
+    		var prod = document.forms["addPI"]["description"].value;
+    	if(counter>=4 && prod.includes("DOLMAN")){
+        $('#dialog-confirm-add')['css']('color', 'black'), $('#dialog-confirm-add')['dialog']('open'), _0xc384x2['preventDefault']()}
+    })
+})
+      </script>
+</head>
+
+<body style="overflow:auto">
+<header>
+ <nav>
+    <div class="nav-wrapper" style="background-color:#404950;border-bottom:solid white 1px">
+     <a href="#"style="margin-left:2%;font-size:30px">CPVFE/DMT - Detalhes de Encomenda</a>
+      <ul id="nav-mobile" class="right">
+        <li> <span>Utilizador: <span th:text="${#authentication.getPrincipal().getUsername()}"></span> &nbsp &nbsp</li>
+       
+         <li> <span>Area: <span th:text="${#authentication.getAuthorities().get(0).roleFunction.replace('ROLE_','')}"></span></span></li>
+        <li><a class='dropdown-button' href='#' data-activates='dropdown1' ><i class="material-icons">arrow_drop_down</i></a></li>
+      </ul>
+       <ul id='dropdown1' class='dropdown-content'>
+    	<li><a href="/User/updatePassword" style="color:#963a3a">Alterar Password</a></li>
+   			<li><a href="/logoutAcc" style="color:#963a3a">Terminar Sessão</a></li>	
+		  </ul>
+      </div>
+  </nav>
+   <nav>
+    <div class="nav-wrapper" style="background-color:#404950">
+      <ul id="nav-mobile" style="margin-left:1%">
+        <li><a  href="	/" class="waves-effect waves-light btn-small"  style="background-color:#963a3a"><i class="material-icons right">home</i>Inicio</a></li>
+           <li><a  href="/PontoDeVenda/Encomendas" class="waves-effect waves-light btn-small" style="background-color:#963a3a"><i class="material-icons right">format_list_bulleted</i>Lista de Encomendas</a></li>	
+      <li><a  href="/PontoDeVenda/RegistarEncomenda" class="waves-effect waves-light btn-small" style="background-color:#963a3a"><i class="material-icons right">add_circle</i>Registar Encomenda</a></li>
+          	  <li><a  href="/CalendarioDeEncomendas" class="waves-effect waves-light btn-small" style="background-color:#963a3a"><i class="material-icons right">view_comfy</i>Calendário</a></li>
+      </ul>
+      </div>
+  </nav>
+ </header>
+    <div style="margin-left:4%">
+        <div th:each="encomenda : ${encomenda}" class="container" style="float:left;width:30%">
+            <div class="row">
+                 <h4>Encomenda <span th:text= "${encomenda.encCode}"></span></h4>
+                <p><strong>Local: </strong><span th:text="${encomenda.description}" </span></p>
+                 <p><strong>Data de Registo: </strong><span th:text="${#temporals.format(encomenda.dateStart,'dd-MM-yyyy')}" </span></p>
+                <p><strong>Data limite de Entrega: </strong><span th:text="${#temporals.format(encomenda.dateLimite,'dd-MM-yyyy')}" </span></p>
+                <p><strong>Estado: </strong><span th:text="${encomenda.state}" </span></p>
+                <p><strong>Costureira: </strong><span th:text="${encomenda.costureira}" </span></p>
+                <h4>Cliente</h4>
+                <p><strong>NIM: </strong><span th:text="${encomenda.client.nim}" </span></p>
+                <p><strong>Nome: </strong><span th:text="${encomenda.client.name}" </span></p>
+                <p><strong>Posto: </strong><span th:text="${encomenda.client.ranked}" </span></p>
+                <p><strong>Unidade: </strong><span th:text="${encomenda.client.department}" </span></p>
+                <p><strong>Arma: </strong><span th:text="${encomenda.client.weapon}" </span></p>
+                <p><strong>Telefone: </strong><span th:text="${encomenda.client.cellNumber}" </span></p>
+                <p><strong>Email: </strong><span th:text="${encomenda.client.email}" </span></p>
+            </div>
+            <button class="waves-effect waves-light btn-small" style="background-color:#963a3a" onclick="showForm()"><i class="material-icons right">add_circle</i>Adicionar Produto à Encomenda</button>
+            <br>
+            <br>
+            <hr>
+        </div>
+         <div style="float:left;margin-left:3%">
+            <h4>Artigos da Encomenda</h4>
+            <table class="centered highlight">
+                <thead>
+                    <tr>
+                        <th>NNA</th>
+                        <th>Artigo</th>
+                        <th>Remover</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${produtos}">
+                        <td><span th:text="${product.nna}"></span></td>
+                        <td><span th:text="${product.description}"></span></td>
+                        <td ><a class="del material-icons"  style="color:#963a3a;font-size:40px" th:href="${(#mvc.url('PDVC#delProd').arg(0,encomenda.encCode).arg(1,product.description)).build()}">delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        </div>
+       	 
+		       <div id="addP" style="display:none;width:21%; text-align:center;float:left;margin-left:5%; margin-top:12%">
+            <h5>Produto a Adicionar</h5>
+               <form method="post" id="addPI" name="addP" > 
+               		<select name="description"  class="browser-default">
+                  			<option style="overflow:auto" th:each="product : ${produtosOrdered}"
+                  				th:value="${product.description}"
+                  				th:text="${product.description}"></option>
+                  	</select>
+                  	<br>
+                  	
+                  <button class=" waves-effect waves-light btn-small" id="add" style="background-color:#963a3a" type="submit"><i class="material-icons right">add_circle</i> Adicionar </button>
+               		<br><br><hr>
+               </form>
+               
+            </div>
+            
+   </div>
+       <div id="dialog-confirm" style="color:white"title="Remover Artigo?">
+  			<p>Tem a certeza que pretende remover o artigo desta encomenda?</p>
+			</div>
+       <div id="dialog-confirm-add" style="color:white"title="Adicionar Artigo?">
+  			<p>Já se encontra encomendado <span th:text="${encomenda.month.counter}"></span> Dolman/s
+  			para o mês de <span th:text="${encomenda.month.month}"></span> de <span th:text="${encomenda.year}"></span>. Tem permissão da chefia para adicionar mais um?</p>
+	   </div>
+   </body>
+    <script>
+      function showForm(){
+      	document.getElementById("addP").style.display="inline";
+      }
+      
+      
+   </script>
+   
+</html>

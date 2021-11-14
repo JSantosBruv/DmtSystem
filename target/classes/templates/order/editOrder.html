@@ -1,0 +1,125 @@
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+	  <head>
+	    <title>CPVFE/DMT</title>
+    <link type="text/css" href="/materialize\css\icon.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css" media="screen,projection" />
+ 	 <script src="/jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+ 	 <script src="/jquery-ui-1.12.1/jquery-ui.js"></script>
+ 	 <link type="text/css" rel="stylesheet" href="/jquery-ui-1.12.1/jquery-ui.min.css"/>
+ 	<link type="text/css" rel="stylesheet" href="/jquery-ui-1.12.1/jquery-ui.theme.css"/>
+  	<script src="/materialize/js/materialize.min.js"></script>
+	  
+</head>
+<body>
+<header class="row">
+<nav>
+    <div class="nav-wrapper" style="background-color:#404950;border-bottom:solid white 1px">
+     <a href="#"style="margin-left:2%;font-size:30px">CPVFE/DMT - Editar Encomenda <span th:text="${encomenda.encCode}"></span></a>
+      <ul id="nav-mobile" class="right">
+        <li> <span>Utilizador: <span th:text="${#authentication.getPrincipal().getUsername()}"></span> &nbsp &nbsp</li>
+       
+         <li> <span>Area: <span th:text="${#authentication.getAuthorities().get(0).roleFunction.replace('ROLE_','')}"></span></span></li>
+        <li><a class='dropdown-button' href='#' data-activates='dropdown1' ><i class="material-icons">arrow_drop_down</i></a></li>
+      </ul>
+       <ul id='dropdown1' class='dropdown-content'>
+    		<li><a href="/User/updatePassword" style="color:#963a3a">Alterar Password</a></li>
+   			<li><a href="/logoutAcc" style="color:#963a3a">Terminar Sessão</a></li>	
+		  </ul>
+      </div>
+  </nav>
+   <nav>
+    <div class="nav-wrapper" style="background-color:#404950">
+      <ul id="nav-mobile" style="margin-left:1%">
+        <li><a  href="/" class="waves-effect waves-light btn-small"  style="background-color:#963a3a"><i class="material-icons right">home</i>Inicio</a></li>
+        <li><a  href="/PontoDeVenda/Encomendas" class="waves-effect waves-light btn-small" style="background-color:#963a3a"><i class="material-icons right">format_list_bulleted</i>Lista de Encomendas</a></li>
+     	 <li><a  href="/PontoDeVenda/RegistarEncomenda" class="waves-effect waves-light btn-small" style="background-color:#963a3a"><i class="material-icons right">add_circle</i>Registar Encomendar</a></li>
+     	  <li><a  href="/CalendarioDeEncomendas" class="waves-effect waves-light btn-small" style="background-color:#963a3a"><i class="material-icons right">view_comfy</i>Calendário</a></li>
+      </ul>
+      </div>
+  </nav>
+ </header>
+ <br><br>
+ 
+		<form class="container" method="post">
+		 <th:block th:include="validationMsgError"></th:block>
+			 	 <th:block th:include="validationMsgValid"></th:block>
+		<div class="row">
+			<h4>Encomenda</h4>
+			<div class="input-field col s4">
+			Local: <select name="description" class="browser-default">
+				 <option th:value="${encomenda.description}" th:text="${encomenda.description}" selected>Escolha uma opção</option>
+ 				 <option value="Porto">Porto</option>
+ 				 <option value="Lisboa">Lisboa</option>
+ 				 		</select>
+ 			</div>
+ 			<div class="input-field col s4">
+			Data limite: <input type="date" th:value="${#temporals.format(encomenda.dateLimite,'yyyy-MM-dd')}" name="dateLimite"/>
+			</div>
+			<div class="input-field col s4">
+			Cotação: <input type="text" th:value="${encomenda.encCode}" name="encCode" readonly required/>
+			</div>
+			<br>
+		</div>
+		<div class="row">
+			<h4>Cliente</h4>
+			<div class="input-field col s3">
+			NIM: <input type="number" th:value="${encomenda.client.nim}" name="nim" required/>
+			</div>
+			<div class="input-field col s3">
+			Nome: <input type="text" th:value="${encomenda.client.name}" name="name" required/>
+			</div>
+			<div class="input-field col s3">
+			Posto: <select  name="ranked" class="browser-default">
+			     <option th:value="${encomenda.client.ranked}" th:text="${encomenda.client.ranked}" selected>Escolha uma opção</option>
+ 				 <option value="GEN">GEN</option>
+ 				 <option value="TGEN">TGEN</option>
+  				 <option value="MGEN">MGEN</option>
+ 				 <option value="BRIG">BRIG</option>
+ 				 <option value="COR">COR</option>
+ 				 <option value="TCOR">TCOR</option>
+  				 <option value="MAJ">MAJ</option>
+ 				 <option value="CAP">CAP</option>
+ 				 <option value="TEN">TEN</option>
+ 				 <option value="ALF">ALF</option>
+  				 <option value="ASP">ASP</option>
+ 				 <option value="SMOR">SMOR</option>
+ 				 <option value="SCH">SCH</option>
+ 				 <option value="SAJ">SAJ</option>
+ 				 <option value="2SAR">2SAR</option>
+			</select>
+			</div>
+			<div class="input-field col s3">
+			Unidade: <input type="text" th:value="${encomenda.client.department}" name="department"/>
+			</div>
+			<div class="input-field col s4">
+			Email: <input type="text" th:value="${encomenda.client.email}" name="email" />
+			</div>
+			<div class="input-field col s4">
+			Telefone: <input type="number" th:value="${encomenda.client.cellNumber}" name="cellNumber"/>
+			</div>
+			<div class="input-field col s4">
+			Arma: <select  name="weapon" class="browser-default">
+			     <option th:value="${encomenda.client.weapon}" th:text="${encomenda.client.weapon}" selected>Escolha uma opção</option>
+ 				 <option value="ADMIL">ADMIL</option>
+ 				 <option value="ART">ART</option>
+  				 <option value="CAV">CAV</option>
+ 				 <option value="ENG">ENG</option>
+ 				 <option value="INF">INF</option>
+ 				 <option value="PSEC">PSEC</option>
+  				 <option value="SGE">SGE</option>
+ 				 <option value="SMAT">SMAT</option>
+ 				 <option value="SMAT ENG">SMAT ENG</option>
+ 				 <option value="STRANSP">STRANSP</option>
+  				 <option value="TMS">TMS</option>
+			</select>
+			</div>
+			</div>
+			
+			  <button class="waves-effect waves-light btn-small" style="background-color:#963a3a" type="submit"><i class="material-icons right">edit</i> Concluir </button>
+		</form>
+		
+	 
+</body>
+  
+</html>

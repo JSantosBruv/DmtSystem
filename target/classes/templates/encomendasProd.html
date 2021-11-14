@@ -1,0 +1,86 @@
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+	  <head>
+  <title>CPVFE/DMT</title>
+    <link type="text/css" href="/materialize\css\icon.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css" media="screen,projection" />
+ 	 <script src="/jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+ 	 <script src="/jquery-ui-1.12.1/jquery-ui.js"></script>
+ 	 <link type="text/css" rel="stylesheet" href="/jquery-ui-1.12.1/jquery-ui.min.css"/>
+ 	<link type="text/css" rel="stylesheet" href="/jquery-ui-1.12.1/jquery-ui.theme.css"/>
+  	<script src="/materialize/js/materialize.min.js"></script>
+	 	<style>
+			a {
+ 			 color: #963a3a;
+			}
+		</style>
+		
+	  </head>
+<body>
+<header>
+ <nav>
+    <div class="nav-wrapper" style="background-color:#404950;border-bottom:solid white 1px">
+     <a href="#"style="margin-left:2%;font-size:30px">CPVFE/DMT - Lista de Encomendas</a>
+      <ul id="nav-mobile" class="right">
+        <li> <span>Utilizador: <span th:text="${#authentication.getPrincipal().getUsername()}"></span> &nbsp &nbsp</li>
+       
+         <li> <span>Area: <span th:text="${#authentication.getAuthorities().get(0).roleFunction.replace('ROLE_','')}"></span></span></li>
+        <li><a class='dropdown-button' href='#' data-activates='dropdown1' ><i class="material-icons">arrow_drop_down</i></a></li>
+      </ul>
+       <ul id='dropdown1' class='dropdown-content'>
+    		<li><a href="/User/updatePassword" style="color:#963a3a">Alterar Password</a></li>
+   			<li><a href="/logoutAcc" style="color:#963a3a">Terminar Sessão</a></li>	
+		  </ul>
+      </div>
+  </nav>
+   <nav>
+    <div class="nav-wrapper" style="background-color:#404950">
+      <ul id="nav-mobile" style="margin-left:1%">
+        <li><a  href="/" class="waves-effect waves-light btn-small"  style="background-color:#963a3a"><i class="material-icons right">home</i>Inicio</a></li>
+        <li><a  href="/PontoDeVenda/RegistarEncomenda" class="waves-effect waves-light btn-small" style="background-color:#963a3a"><i class="material-icons right">add_circle</i>Registar Encomenda</a></li>
+     	     	  <li><a  href="/CalendarioDeEncomendas" class="waves-effect waves-light btn-small" style="background-color:#963a3a"><i class="material-icons right">view_comfy</i>Calendário</a></li>
+      </ul>
+      </div>
+  </nav>
+ </header>
+ 		 
+	<br><br>
+	<table  class="centered highlight">
+		<thead>
+			<tr>
+				<th><a href="/PontoDeVenda/Encomendas?order=cotacao">Cotação</a></th>
+				<th><a href="/PontoDeVenda/Encomendas?order=posto">Posto</a></th>
+				<th><a href="/PontoDeVenda/Encomendas?order=arma">Arma</a></th>
+				<th><a href="/PontoDeVenda/Encomendas?order=nim">NIM</a></th>
+				<th><a href="/PontoDeVenda/Encomendas?order=nome">Nome</a></th>
+				<th><a href="/PontoDeVenda/Encomendas?order=local">Local</a></th>
+				<th><a href="/PontoDeVenda/Encomendas?order=dataregisto">Data de Registo</a></th>
+				<th><a href="/PontoDeVenda/Encomendas?order=datalimite">Data Limite</a></th>
+				<th><a href="/PontoDeVenda/Encomendas?order=estado">Estado</a></th>
+				<th>Consultar</th>
+				<th>Editar</th>
+				
+				
+			</tr>
+		</thead>
+		<tbody>
+				<tr th:each="encomenda : ${encomendas}">
+						<td><span th:text="${encomenda.encCode}"></span></td>
+					    <td><span th:text="${encomenda.client.ranked}"></span></td>
+					    <td><span th:text="${encomenda.client.weapon}"></span></td>
+					    <td><span th:text="${encomenda.client.nim}"></span></td>
+						<td><span th:text="${encomenda.client.name}"></span></td>
+						<td><span th:text="${encomenda.description}"></span></td>
+						<td><span th:text="${#temporals.format(encomenda.dateStart,'dd-MM-yyyy')}"></span></td>
+						<td><span th:text="${#temporals.format(encomenda.dateLimite,'dd-MM-yyyy')}"></span></td>
+						<td><span th:text="${encomenda.state}"></span></td>
+						<td><a  th:href="${(#mvc.url('PDVC#detailEncomendaProd').arg(0,encomenda.encCode)).build()}"class="waves-effect waves-light btn-small" style="background-color:#963a3a"><i class="material-icons">arrow_forward</i></a></td>
+						<td><a  th:href="${(#mvc.url('PDVC#editEncomenda').arg(0,encomenda.encCode)).build()}" class="waves-effect waves-light btn-small" style="background-color:#963a3a"><i class="material-icons">edit</i></a></td>
+					</tr>	
+		</tbody>
+	
+	</table>
+     
+</body>
+ 
+</html>

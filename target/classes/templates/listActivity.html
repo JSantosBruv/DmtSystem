@@ -1,0 +1,96 @@
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+	  <head>
+  <title>CPVFE/DMT</title>
+    <link type="text/css" href="/materialize\css\icon.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css" media="screen,projection" />
+ 	 <script src="/jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+ 	 <script src="/jquery-ui-1.12.1/jquery-ui.js"></script>
+ 	 <link type="text/css" rel="stylesheet" href="/jquery-ui-1.12.1/jquery-ui.min.css"/>
+ 	<link type="text/css" rel="stylesheet" href="/jquery-ui-1.12.1/jquery-ui.theme.css"/>
+  	<script src="/materialize/js/materialize.min.js"></script>
+
+	<style>
+			a {
+ 			 color: #963a3a;
+			}
+			
+			.b{
+			margin-left:1rem;margin-right:1rem;
+			
+			}
+			.p{
+			color: #963a3a;font-size:1.4rem;
+			}
+		</style>
+</head>
+<body>
+<header>
+<nav>
+    <div class="nav-wrapper" style="background-color:#404950;border-bottom:solid white 1px">
+     <a href="#"style="margin-left:2%;font-size:30px">CPVFE/DMT - Registo de Atividade</a>
+      <ul id="nav-mobile" class="right">
+        <li> <span>Utilizador: <span th:text="${#authentication.getPrincipal().getUsername()}"></span> &nbsp &nbsp</li>
+       
+         <li> <span>Area: <span th:text="${#authentication.getAuthorities().get(0).roleFunction.replace('ROLE_','')}"></span></span></li>
+        <li><a class='dropdown-button' href='#' data-activates='dropdown1' ><i class="material-icons">arrow_drop_down</i></a></li>
+      </ul>
+       <ul id='dropdown1' class='dropdown-content'>
+    		<li><a href="/User/updatePassword" style="color:#963a3a">Alterar Password</a></li>
+   			<li><a href="/logoutAcc" style="color:#963a3a">Terminar Sessão</a></li>	
+		  </ul>
+      </div>
+  </nav>
+   <nav>
+    <div class="nav-wrapper" style="background-color:#404950">
+      <ul id="nav-mobile" style="margin-left:1%">
+        <li><a  href="/" class="waves-effect waves-light btn-small"  style="background-color:#963a3a"><i class="material-icons right">home</i>Inicio</a></li>
+     	 <li><a  href="/PontoDeVenda" class="waves-effect waves-light btn-small" style="background-color:#963a3a"><i class="material-icons right">add_circle</i>Ponto de Venda</a></li>
+     	<li><a  href="/Alfaiataria" class="waves-effect waves-light btn-small" style="background-color:#963a3a"><i class="material-icons right">add_circle</i>Alfaiataria</a></li>
+     	<li><a  href="/Administrador" class="waves-effect waves-light btn-small"style="background-color:#963a3a"><i class="material-icons right">verified_user</i>Administração</a></li>
+      </ul>
+      </div>
+  </nav>
+ </header>
+
+<div class=" center-align">
+<br><br>
+	<a  href="./exportRegistoAtividade"> <button class="waves-effect waves-light btn-large"style="background-color:#963a3a"><i class="material-icons right">arrow_downward</i> Exportar Excel </button></a><br><br>
+			<div class="row b" style="border-bottom:1px solid rgba(0,0,0,0.12)">
+				<div class="col s1"><h5><strong><a href="/Administrador/RegistoDeActividade?order=cotacao">Cotação</a></strong></h5></div>
+				<div class="col s1"><h5><strong><a href="/Administrador/RegistoDeActividade?order=posto">Posto</a></strong></h5></div>
+				<div class="col s1"><h5><strong><a href="/Administrador/RegistoDeActividade?order=arma">Arma</a></strong></h5></div>
+		        <div class="col s1"> <h5><strong><a href="/Administrador/RegistoDeActividade?order=nim">NIM</a></strong></h5></div>
+				<div class="col s2"><h5><strong><a href="/Administrador/RegistoDeActividade?order=nome">Nome</a></strong></h5></div>
+				<div class="col s1"><h5><strong><a href="/Administrador/RegistoDeActividade?order=local">Local</a></strong></h5></div>
+				<div class="col s2"><h5><strong><a href="/Administrador/RegistoDeActividade?order=dataregisto">Data de Registo</a></strong></h5></div>
+				<div class="col s2"><h5><strong><a href="/Administrador/RegistoDeActividade?order=datalimite">Data Limite</a></strong></h5></div>
+				<div class="col s1"><h5><strong><a href="/Administrador/RegistoDeActividade?order=estado">Estado</a></strong></h5></div>
+			 </div>
+		
+			<div class="row b" style="font-size:1.2rem"  th:each="encomenda : ${encomendas}">
+						<div class="col s1"><span th:text="${encomenda.encCode}"</span></div>
+					  <div class="col s1">  <span th:text="${encomenda.client.ranked}"</span></div>
+					  <div class="col s1">  <span th:text="${encomenda.client.weapon}"</span></div>
+					  <div class="col s1">  <span th:text="${encomenda.client.nim}"</span></div>
+						<div class="col s2"><span th:text="${encomenda.client.name}"</span></div>
+					<div class="col s1">	<span th:text="${encomenda.description}"</span></div>
+					<div class="col s2">	<span th:text="${#temporals.format(encomenda.dateStart,'dd-MM-yyyy')}"</span></div>
+					<div class="col s2">	<span th:text="${#temporals.format(encomenda.dateLimite,'dd-MM-yyyy')}"</span></div>
+					<div class="col s1">	<span th:text="${encomenda.state}"</span></div>
+							<br><br>
+				<div style="background-color:#d9d9d9">
+				<span class="p b"><strong>Artigos: </strong></span>	
+				   <span  th:each="product : ${encomenda.getProd()}">
+				   &nbsp
+				   <strong th:text="${product.description}"></strong>
+				   &nbsp
+				   </span>	
+				</div>
+		</div>
+	   
+</div>
+</body>
+</html>
+
+

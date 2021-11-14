@@ -1,0 +1,57 @@
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+  <head>
+    <title>Please Login</title>
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <style>
+      
+      .a{
+      
+      color:white;
+      
+      }
+     
+      </style>
+  </head>
+  <body style ="background-color:#1C1C1C">
+    <div class="center-align">
+    	<h3 class = "a">Comando da Logística</h3>
+		<h3 class = "a">CPVFE/DMT</h3><br>
+		<div class=" center-align">
+		
+        <form name="f" th:action="@{/login}" method="post" >   
+                    
+            <fieldset class="container"  style="background-color:white">
+            <h3>Autenticação de pessoal</h3><br>
+                <div th:if="${param.error}" class="alert alert-error" style="color:red">    
+                    <h4>Credenciais erradas</h4><br>
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success"> 
+                    You have been logged out.
+                </div>
+                <div class="container center-align">
+                <div class="row">
+                <div class="input-field col s6">
+                <h5>Username</h5>
+                <input type="text" id="username" name="username"/> 
+                </div>       
+                <div class="input-field col s6">             
+                <h5>Password</h5>
+                <input type="password" id="password" name="password"/>    
+                </div>
+               	</div>
+               	</div>
+                <div class="form-actions">
+                <br>
+                    <button type="submit" class="waves-effect waves-light btn-large but" style="background-color:#1c1c1c">Log in</button>
+                    <br><br>
+                </div>
+            </fieldset>
+        </form>
+        </div>
+    </div>
+    <br><hr>
+  </body>
+</html>
