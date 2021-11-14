@@ -15,3 +15,24 @@ Backoffice platform used to manage orders, products, workers and clients.
 * Java 
 * Maven
 * HTML, CSS, jQuery, Thymeleaf
+
+## How to Play with it
+
+### Must have
+* Java 8
+* MySQL
+* Maven
+
+### How to run
+
+Update MySQL credentials and database name in [application.properties](src/main/resources/application.properties).
+
+Run in root folder
+
+`mvn package` To create executable jar
+
+`java -jar target/dmtSystem-stable.jar`
+
+Web Server is exposed on port 8080 with a built in user 
+User: admin
+Pass: superStrongPassword
