@@ -31,8 +31,10 @@ Run in root folder
 
 `mvn package` To create executable jar
 
-`java -jar target/dmtSystem-stable.jar`
+`java -jar target/dmtSystem-stable.jar` To run jar
 
-Web Server is exposed on port 8080 with a built in user 
+Web Server is exposed on port 8080 with a built in admin user: 
+
 User: admin
+
 Pass: superStrongPassword
